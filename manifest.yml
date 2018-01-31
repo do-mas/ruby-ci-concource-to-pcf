@@ -1,0 +1,4 @@
+name: ruby-concource-ci
+memory: 64M
+random-route: true
+path: .

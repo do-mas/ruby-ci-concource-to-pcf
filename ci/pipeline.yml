@@ -1,0 +1,28 @@
+resources:
+- name: ruby-concource-ci
+  type: git
+  source:
+    uri: https://github.com/do-mas/ruby-concource-ci
+    branch: master
+
+- name: staging-app
+  type: cf
+  source:
+    api: https://api.run.pivotal.io
+    username: domas.juodele@gmail.com
+    password: Pivotal$1
+    organization: doju-pro
+    space: development
+
+jobs:
+
+- name: test-app
+  plan:
+  - get: ruby-concource-ci
+    trigger: true
+  - task: tests
+    file: ruby-concource-ci/build.yml
+  - put: staging-app
+    params:
+      manifest: ruby-concource-ci/manifest.yml
+
